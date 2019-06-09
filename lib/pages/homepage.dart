@@ -13,7 +13,6 @@ import 'package:instagramdownloader/models/mediaItem_model.dart';
 class HomePage extends StatefulWidget {
   @override
   State<StatefulWidget> createState() {
-    // TODO: implement createState
     return _HomePageState();
   }
 }
@@ -36,8 +35,6 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
-    double width = MediaQuery.of(context).size.width;
-    // TODO: implement build
     return Scaffold(
       body: Container(
         decoration: GlobalTheme.renderBackground(),
@@ -86,14 +83,14 @@ class _HomePageState extends State<HomePage> {
     }
     if (mediaItemList.length > 0) {
       return Expanded(
-        child: _buildNotificationPanel(mediaItemList),
+        child: _buildResultPanel(mediaItemList),
       );
     } else {
       return Container();
     }
   }
 
-  Widget _buildNotificationPanel(List<MediaItemModel> model) {
+  Widget _buildResultPanel(List<MediaItemModel> model) {
     final resultsBody = <Widget>[];
     resultsBody.add(_buildBodyCardTitle(title: "Results"));
     resultsBody.add(Divider(
@@ -107,6 +104,7 @@ class _HomePageState extends State<HomePage> {
         color: Colors.black87,
       ));
     }
+
     return SingleChildScrollView(
       child: Column(
         children: <Widget>[
@@ -137,7 +135,7 @@ class _HomePageState extends State<HomePage> {
             ),
           ),
           Text(
-            "View All",
+            "Download All",
             style: TextStyle(color: Colors.grey),
           ),
         ],
@@ -152,62 +150,53 @@ class _HomePageState extends State<HomePage> {
         child: Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            new Container(
-              decoration: new BoxDecoration(
-                boxShadow: [
-                  BoxShadow(
-                    color: Colors.grey,
-                    blurRadius: 7.0, // has the effect of softening the shadow
-                    spreadRadius: 3.0, // has the effect of extending the shadow
-                    offset: Offset(
-                      2.0, // horizontal, move right 10
-                      2.0, // vertical, move down 10
-                    ),
-                  )
-                ],
-                color: Colors.white,
-                border: new Border.all(width: 1.0, color: Colors.white),
-                borderRadius:
-                    const BorderRadius.all(const Radius.circular(10.0)),
-              ),
-              margin: EdgeInsets.only(top:10, bottom: 10, right: 10),
-              width: (MediaQuery.of(context).size.width - 100),
-              height: 150.0,
-              child: ClipRRect(
-                borderRadius:
-                    const BorderRadius.all(const Radius.circular(10.0)),
-                child: Image.network(
-                  model.photoUrl,
-                  fit: BoxFit.cover,
-                ),
-              ),
-            ),
-            new Padding(
-              padding: EdgeInsets.only(left: 10.0),
-              child: Column(
-                children: <Widget>[
-                  FloatingActionButton(
-                    backgroundColor: Colors.grey[200],
-                    onPressed: () {},
-                    heroTag: 'image0',
-                    tooltip: 'View',
-                    child: const Icon(Icons.photo_library),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.only(top: 16.0),
-                    child: FloatingActionButton(
-                    backgroundColor: Colors.grey[300],
-                      onPressed: () {},
-                      heroTag: 'image1',
-                      tooltip: 'Download',
-                      child: const Icon(Icons.file_download),
-                    ),
-                  ),
-                ],
-              ),
-            )
+            _getResultPreview(model.photoUrl),
+            _getResultButton(),
           ],
         ),
+      ),
+    );
+  }
+
+  Widget _getResultPreview(String imageUrl) {
+    return new Container(
+      decoration: GlobalTheme.renderBoxShadow(),
+      margin: EdgeInsets.only(top: 10, bottom: 10, right: 10),
+      width: (MediaQuery.of(context).size.width - 100),
+      height: 150.0,
+      child: ClipRRect(
+        borderRadius: const BorderRadius.all(const Radius.circular(10.0)),
+        child: Image.network(
+          imageUrl,
+          fit: BoxFit.cover,
+        ),
+      ),
+    );
+  }
+
+  Widget _getResultButton() {
+    return new Padding(
+      padding: EdgeInsets.only(left: 10.0),
+      child: Column(
+        children: <Widget>[
+          FloatingActionButton(
+            backgroundColor: Colors.grey[200],
+            onPressed: () {},
+            heroTag: 'image0',
+            tooltip: 'View',
+            child: const Icon(Icons.photo_library),
+          ),
+          Padding(
+            padding: const EdgeInsets.only(top: 16.0),
+            child: FloatingActionButton(
+              backgroundColor: Colors.grey[300],
+              onPressed: () {},
+              heroTag: 'image1',
+              tooltip: 'Download',
+              child: const Icon(Icons.file_download),
+            ),
+          ),
+        ],
       ),
     );
   }

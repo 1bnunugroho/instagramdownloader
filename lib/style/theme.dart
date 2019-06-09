@@ -12,6 +12,25 @@ class GlobalTheme {
     );
   }
 
+  static renderBoxShadow() {
+    return new BoxDecoration(
+      boxShadow: [
+        BoxShadow(
+          color: Colors.grey,
+          blurRadius: 7.0, // has the effect of softening the shadow
+          spreadRadius: 3.0, // has the effect of extending the shadow
+          offset: Offset(
+            2.0, // horizontal, move right 10
+            2.0, // vertical, move down 10
+          ),
+        )
+      ],
+      color: Colors.white,
+      border: new Border.all(width: 1.0, color: Colors.white),
+      borderRadius: const BorderRadius.all(const Radius.circular(10.0)),
+    );
+  }
+
   static defaultInputPadding() {
     return EdgeInsets.only(top: 20.0, bottom: 20.0, left: 25.0, right: 25.0);
   }
