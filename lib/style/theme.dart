@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 class GlobalTheme {
-   static renderBackground() {
+  static renderBackground() {
     return new BoxDecoration(
       gradient: new LinearGradient(
           colors: [Colors.grey[200], Colors.grey[300]],
@@ -16,3 +16,6 @@ class GlobalTheme {
     return EdgeInsets.only(top: 20.0, bottom: 20.0, left: 25.0, right: 25.0);
   }
 }
+
+final Color color1 = Color(0xff38bbad);
+final Color color2 = Color(0xff2b7a98);
